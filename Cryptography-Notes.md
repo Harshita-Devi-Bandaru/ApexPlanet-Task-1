@@ -438,65 +438,7 @@ or:
 openssl dgst -sha256 crypto-test.txt
 ```
 
----
-
-## 15. Recommended Screenshots
-
-For the Task 1 lab report, capture screenshots showing the actual commands and results.
-
-### Screenshot 1 – Original File
-
-Show:
-
-```bash
-cat crypto-test.txt
-```
-
-### Screenshot 2 – Encryption
-
-Show:
-
-```bash
-openssl enc -aes-256-cbc -salt -in crypto-test.txt -out crypto-test.enc
-```
-
-### Screenshot 3 – Encrypted File
-
-Show:
-
-```bash
-ls -l crypto-test.txt crypto-test.enc
-```
-
-### Screenshot 4 – Decryption
-
-Show:
-
-```bash
-openssl enc -d -aes-256-cbc -in crypto-test.enc -out crypto-decrypted.txt
-```
-
-### Screenshot 5 – Decrypted Content
-
-Show:
-
-```bash
-cat crypto-decrypted.txt
-```
-
-### Screenshot 6 – SHA-256
-
-Show:
-
-```bash
-sha256sum crypto-test.txt
-```
-
-These screenshots provide evidence that the cryptography exercises were performed in the lab.
-
----
-
-## 16. Key Terms
+## 15. Key Terms
 
 | Term | Meaning |
 |---|---|
@@ -515,7 +457,7 @@ These screenshots provide evidence that the cryptography exercises were performe
 
 ---
 
-## 17. Learning Outcome
+## 16. Learning Outcome
 
 After completing this section, I understood:
 
@@ -530,7 +472,7 @@ After completing this section, I understood:
 
 ---
 
-## 18. Lab Environment
+## 17. Lab Environment
 
 **Operating System:** Kali Linux  
 **Virtualization:** VMware Workstation  
