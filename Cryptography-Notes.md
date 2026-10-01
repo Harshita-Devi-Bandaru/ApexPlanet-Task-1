@@ -1,71 +1,60 @@
 # Cryptography Notes
 
-## ApexPlanet Task 1 – Foundation & Environment Setup
+## ApexPlanet Internship – Task 1
 
-**Internship:** ApexPlanet Software Pvt. Ltd.  
-**Domain:** Cybersecurity & Ethical Hacking  
-**Task:** Task 1 – Foundation & Environment Setup
+This section contains the basic cryptography topics I studied for Task 1.
+
+The topics covered are:
+
+- Symmetric encryption
+- Asymmetric encryption
+- MD5
+- SHA-256
+- Digital certificates
+- SSL/TLS
+- OpenSSL encryption and decryption
 
 ---
 
-## 1. Introduction to Cryptography
+## 1. What is Cryptography?
 
-Cryptography is the practice of protecting information by transforming readable data into a protected form so that unauthorized users cannot understand or modify it.
+Cryptography is used to protect information from unauthorized access or modification.
 
-It is commonly used to provide:
+It is used in many areas of cybersecurity, including secure communication, data protection and authentication.
 
-- Confidentiality
-- Integrity
-- Authentication
-- Data protection
-- Secure communication
+The basic idea is:
 
-Cryptography is an important part of cybersecurity because sensitive information may travel through untrusted networks.
+```text
+Original Data
+     ↓
+Cryptographic Process
+     ↓
+Protected Data
+```
 
 ---
 
 ## 2. Symmetric Encryption
 
-Symmetric encryption uses the **same key** for both encryption and decryption.
-
-### Basic Process
+Symmetric encryption uses the **same key** for encryption and decryption.
 
 ```text
 Plaintext
-   |
-   | Encryption + Secret Key
-   ↓
+    ↓
+Encryption + Key
+    ↓
 Ciphertext
-   |
-   | Decryption + Same Secret Key
-   ↓
+    ↓
+Decryption + Same Key
+    ↓
 Plaintext
 ```
 
-### Example
+The main advantage is that it is generally fast and suitable for encrypting large amounts of data.
 
-If:
+The main challenge is securely sharing the secret key.
 
-```text
-Plaintext:  Hello
-Key:        SecretKey
-```
-
-The encryption process produces ciphertext.
-
-The receiver needs the **same secret key** to decrypt the ciphertext.
-
-### Advantages
-
-- Fast
-- Suitable for encrypting large amounts of data
-- Requires relatively less computational resources
-
-### Challenge
-
-The secret key must be securely shared between the sender and receiver.
-
-### Examples
+Examples include:
 
 - AES
 - DES
@@ -75,129 +64,112 @@ The secret key must be securely shared between the sender and receiver.
 
 ## 3. Asymmetric Encryption
 
-Asymmetric encryption uses a **key pair**:
+Asymmetric encryption uses two keys:
 
 - Public key
 - Private key
 
 The public key can be shared, while the private key should be kept secret.
 
-### Basic Process
+A simplified example:
 
 ```text
 Sender
-   |
-   | Encrypt using Receiver's Public Key
    ↓
-Ciphertext
-   |
-   | Decrypt using Receiver's Private Key
+Receiver's Public Key
    ↓
-Receiver
+Encrypted Data
+   ↓
+Receiver's Private Key
+   ↓
+Original Data
 ```
 
-### Example
-
-If a sender wants to securely send information to a receiver:
-
-1. The sender obtains the receiver's public key.
-2. The sender encrypts the information using the public key.
-3. The encrypted information is sent to the receiver.
-4. The receiver decrypts it using the corresponding private key.
-
-### Advantages
-
-- Solves the key-sharing problem associated with symmetric encryption.
-- Supports secure communication and authentication mechanisms.
-
-### Examples
+Examples include:
 
 - RSA
 - ECC
 
 ---
 
-## 4. Symmetric vs Asymmetric Encryption
+## 4. Symmetric vs Asymmetric
 
-| Feature | Symmetric Encryption | Asymmetric Encryption |
-|---|---|---|
-| Keys used | One shared key | Public and private key pair |
-| Speed | Generally faster | Generally slower |
-| Key sharing | Secret key must be shared securely | Public key can be shared |
-| Common use | Bulk data encryption | Secure key exchange, authentication |
-| Examples | AES, DES | RSA, ECC |
+| Symmetric | Asymmetric |
+|---|---|
+| Uses one shared key | Uses public and private keys |
+| Generally faster | Generally slower |
+| Key must be shared securely | Public key can be shared |
+| Example: AES | Example: RSA |
 
 ---
 
 ## 5. Hashing
 
-Hashing converts data into a fixed-length value called a **hash** or **digest**.
-
-Unlike encryption, hashing is designed as a one-way operation.
+Hashing converts input data into a fixed-size value called a hash.
 
 ```text
-Input Data
-    |
-    | Hash Function
-    ↓
-Hash / Digest
+Input
+  ↓
+Hash Function
+  ↓
+Hash Value
 ```
 
-A hash is commonly used to verify whether data has been changed.
+Hashing is different from encryption because a cryptographic hash is designed as a one-way operation.
+
+It can be used for checking whether data has changed.
 
 ---
 
 ## 6. MD5
 
-**MD5 (Message-Digest Algorithm 5)** produces a **128-bit hash value**.
+MD5 stands for **Message-Digest Algorithm 5**.
+
+It produces a **128-bit hash**.
 
 Example:
 
 ```text
-Input
-  ↓
+File
+ ↓
 MD5
-  ↓
+ ↓
 128-bit hash
 ```
 
-MD5 is historically important, but it is **not considered suitable for modern security-sensitive applications** because weaknesses allow collisions.
-
-It may still be encountered when studying legacy systems or existing files.
+MD5 is no longer considered secure for applications that require collision resistance. It may still be found in older systems and files.
 
 ---
 
 ## 7. SHA-256
 
-**SHA-256** is a member of the SHA-2 family of cryptographic hash functions.
+SHA-256 is part of the SHA-2 family.
 
-It produces a **256-bit hash value**.
+It produces a **256-bit hash**.
+
+It can be used for things such as:
+
+- File integrity checking
+- Data verification
+- Security applications
 
 Example:
 
 ```text
-Input Data
-    |
-    | SHA-256
-    ↓
-256-bit Hash
+File
+ ↓
+SHA-256
+ ↓
+256-bit hash
 ```
 
-SHA-256 can be used for:
+### MD5 and SHA-256
 
-- Data integrity verification
-- File integrity checking
-- Digital signatures as part of a larger process
-- Security-related applications
-
-### MD5 vs SHA-256
-
-| Feature | MD5 | SHA-256 |
-|---|---|---|
-| Output size | 128 bits | 256 bits |
-| Security | Cryptographically broken | Widely used |
-| Common modern security use | Not recommended | Commonly used |
-| Purpose | Hashing | Hashing |
+| MD5 | SHA-256 |
+|---|---|
+| 128-bit output | 256-bit output |
+| Older hash algorithm | SHA-2 family |
+| Not recommended for security-sensitive collision resistance | Widely used for integrity-related purposes |
 
 ---
 
@@ -205,277 +177,189 @@ SHA-256 can be used for:
 
 A digital certificate is used to associate a public key with an identity.
 
-Certificates are commonly used in secure web communication.
+Certificates are commonly used in HTTPS connections.
 
 A certificate can contain information such as:
 
-- Subject/domain
+- Domain/subject
 - Public key
-- Certificate issuer
+- Issuer
 - Validity period
-- Digital signature of the certificate authority
+- Digital signature
 
-### Certificate Authorities
-
-A **Certificate Authority (CA)** is an entity that issues and signs digital certificates.
-
-Examples include publicly trusted certificate authorities used by websites and organizations.
+A **Certificate Authority (CA)** issues and signs certificates.
 
 ---
 
 ## 9. SSL/TLS
 
-**TLS (Transport Layer Security)** is a protocol used to provide secure communication over a network.
+TLS stands for **Transport Layer Security**.
 
-You may commonly see **HTTPS**, which uses HTTP over TLS.
+It is used to protect communication over a network.
 
-### HTTP vs HTTPS
+HTTPS uses HTTP over TLS.
 
 ```text
 HTTP
-Client  <----------->  Server
-       Unencrypted
-
+   +
+ TLS
+   ↓
 HTTPS
-Client  <===========>  Server
-          TLS
-       Encrypted/Secure
 ```
 
 TLS helps provide:
 
 - Confidentiality
 - Integrity
-- Authentication of the server through certificates
+- Authentication
 
-### HTTPS Example
-
-When accessing:
-
-```text
-https://example.com
-```
-
-the browser establishes a TLS-secured connection with the server.
+When a website uses HTTPS, the browser establishes a TLS-secured connection with the server.
 
 ---
 
 ## 10. OpenSSL
 
-**OpenSSL** is a widely used open-source toolkit that provides cryptographic functionality.
+OpenSSL is a tool that can be used for cryptographic operations and TLS-related tasks.
 
-It can be used for tasks involving:
-
-- Encryption and decryption
-- Hash generation
-- Key generation
-- Certificates
-- TLS-related operations
-
-For this task, OpenSSL can be used to demonstrate basic encryption and decryption.
+For this task, I used OpenSSL to practice basic encryption, decryption and hashing.
 
 ---
 
-## 11. OpenSSL Encryption and Decryption
+## 11. Creating a Test File
 
-### Create a Test File
+I created a small text file in Kali Linux:
 
 ```bash
-echo "ApexPlanet Cybersecurity Task 1" > message.txt
+echo "ApexPlanet Task 1" > message.txt
 ```
 
-Check the contents:
+To check the file:
 
 ```bash
 cat message.txt
 ```
 
-Expected output:
-
-```text
-ApexPlanet Cybersecurity Task 1
-```
-
 ---
 
-### Encrypt the File
+## 12. Encrypting the File
 
-A basic OpenSSL encryption example is:
+I used OpenSSL with AES-256-CBC:
 
 ```bash
 openssl enc -aes-256-cbc -salt -in message.txt -out message.enc
 ```
 
-OpenSSL will ask for a password.
+OpenSSL asks for a password during the process.
 
-The encrypted file can then be viewed:
+The encrypted file is saved as:
 
-```bash
-ls -l message.txt message.enc
+```text
+message.enc
 ```
-
-The encrypted file should not display the original readable text when opened as normal text.
 
 ---
 
-### Decrypt the File
+## 13. Decrypting the File
 
-Use:
+To decrypt the file:
 
 ```bash
 openssl enc -d -aes-256-cbc -in message.enc -out decrypted.txt
 ```
 
-Enter the same password used during encryption.
+I entered the same password that was used during encryption.
 
-Check the decrypted content:
+Then I checked the decrypted file:
 
 ```bash
 cat decrypted.txt
 ```
 
-Expected output:
-
-```text
-ApexPlanet Cybersecurity Task 1
-```
-
-### Encryption Flow
-
-```text
-message.txt
-     |
-     | AES-256-CBC + Password
-     ↓
-message.enc
-     |
-     | Decryption + Same Password
-     ↓
-decrypted.txt
-```
+The output should match the original contents of `message.txt`.
 
 ---
 
-## 12. Hashing with OpenSSL
+## 14. SHA-256 Hash
 
-A SHA-256 hash can be generated using:
-
-```bash
-openssl dgst -sha256 message.txt
-```
-
-Example format:
-
-```text
-SHA2-256(message.txt)= <hash-value>
-```
-
-The exact hash value depends on the file contents.
-
-You can also use:
+I used `sha256sum` to generate a SHA-256 hash:
 
 ```bash
 sha256sum message.txt
 ```
 
-This generates the SHA-256 checksum of the file.
-
----
-
-## 13. Comparing Encryption and Hashing
-
-| Feature | Encryption | Hashing |
-|---|---|---|
-| Purpose | Protect data confidentiality | Verify data/integrity |
-| Reversible | Yes, with the required key | Designed to be one-way |
-| Output | Ciphertext | Fixed-length hash |
-| Key | Usually required | Not required |
-| Example | AES | SHA-256 |
-
----
-
-## 14. Practical Cryptography Exercise
-
-### Objective
-
-Demonstrate basic encryption, decryption, and hashing using OpenSSL.
-
-### Step 1 – Create File
+I also checked it using OpenSSL:
 
 ```bash
-echo "Cybersecurity Foundation Task 1" > crypto-test.txt
+openssl dgst -sha256 message.txt
 ```
 
-### Step 2 – Encrypt
+Both commands can be used to calculate the SHA-256 digest of the file.
+
+---
+
+## 15. Encryption vs Hashing
+
+| Encryption | Hashing |
+|---|---|
+| Protects data confidentiality | Mainly used for integrity/verification |
+| Can be decrypted with the required key | Designed as a one-way operation |
+| Produces ciphertext | Produces a hash/digest |
+| Example: AES | Example: SHA-256 |
+
+---
+
+## 16. Practical Exercise
+
+### Step 1 – Create a file
+
+```bash
+echo "Cybersecurity Task 1" > crypto-test.txt
+```
+
+### Step 2 – Encrypt it
 
 ```bash
 openssl enc -aes-256-cbc -salt -in crypto-test.txt -out crypto-test.enc
 ```
 
-### Step 3 – Decrypt
+### Step 3 – Decrypt it
 
 ```bash
 openssl enc -d -aes-256-cbc -in crypto-test.enc -out crypto-decrypted.txt
 ```
 
-### Step 4 – Verify
+### Step 4 – Check the result
 
 ```bash
 cat crypto-decrypted.txt
 ```
 
-The decrypted content should match the original file.
-
-### Step 5 – Generate SHA-256 Hash
+### Step 5 – Generate SHA-256
 
 ```bash
 sha256sum crypto-test.txt
 ```
 
-or:
+---
 
-```bash
-openssl dgst -sha256 crypto-test.txt
-```
+## 17. Quick Reference
 
-## 15. Key Terms
-
-| Term | Meaning |
+| Topic | What I understood |
 |---|---|
-| Plaintext | Original readable data |
-| Ciphertext | Encrypted data |
-| Encryption | Converting plaintext into ciphertext |
-| Decryption | Converting ciphertext back into plaintext |
-| Key | Value used by a cryptographic algorithm |
-| Hash | Fixed-length digest generated from data |
-| Symmetric | Uses the same key for encryption and decryption |
-| Asymmetric | Uses public and private keys |
-| Certificate | Binds an identity to a public key |
-| CA | Certificate Authority |
-| TLS | Protocol for securing network communication |
-| OpenSSL | Toolkit for cryptographic and TLS operations |
+| Symmetric encryption | Same key for encryption and decryption |
+| Asymmetric encryption | Public/private key pair |
+| MD5 | 128-bit hash, not suitable for modern security-sensitive use |
+| SHA-256 | 256-bit SHA-2 hash |
+| Digital certificate | Connects an identity with a public key |
+| TLS | Helps secure network communication |
+| OpenSSL | Tool for cryptographic operations |
 
 ---
 
-## 16. Learning Outcome
+## What I Learned
 
-After completing this section, I understood:
+I learned the basic difference between encryption and hashing and the difference between symmetric and asymmetric encryption.
 
-- The basic purpose of cryptography.
-- The difference between symmetric and asymmetric encryption.
-- The concept of hashing.
-- The difference between MD5 and SHA-256.
-- The purpose of digital certificates.
-- The role of TLS in secure communication.
-- Basic encryption and decryption using OpenSSL.
-- How SHA-256 can be used to verify file integrity.
+I also practiced creating a file, encrypting it with OpenSSL, decrypting it again and generating a SHA-256 hash.
 
----
-
-## 17. Lab Environment
-
-**Operating System:** Kali Linux  
-**Virtualization:** VMware Workstation  
-**Purpose:** Cybersecurity learning and controlled laboratory exercises
-
-> All cryptography demonstrations were performed for educational purposes in a controlled lab environment.
+These exercises helped me understand some of the cryptography concepts used in cybersecurity.
